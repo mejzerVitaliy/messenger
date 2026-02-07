@@ -7,7 +7,17 @@ import { AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Button, Input, PasswordInput } from 'shared/ui';
+import {
+  Button,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+  PasswordInput,
+} from 'shared/ui';
 
 import { useSignIn } from '../model/use-sign-in';
 
@@ -25,12 +35,9 @@ type SignInFormValues = z.infer<typeof signInSchema>;
 export const SignInForm = () => {
   const { mutate, isPending, error } = useSignIn();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignInFormValues>({
+  const form = useForm<SignInFormValues>({
     resolver: zodResolver(signInSchema),
+    defaultValues: { email: '', password: '' },
   });
 
   const onSubmit = (data: SignInFormValues) => {
@@ -41,51 +48,66 @@ export const SignInForm = () => {
     error instanceof AxiosError ? error.response?.data?.message : null;
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex w-full max-w-md flex-col gap-5"
-    >
-      <div className="mb-2 flex flex-col gap-1">
-        <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
-        <p className="text-sm text-slate-500">
-          Sign in to continue to Messenger
-        </p>
-      </div>
-
-      {serverError && (
-        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
-          {serverError}
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex w-full max-w-md flex-col gap-5"
+      >
+        <div className="mb-2 flex flex-col gap-1">
+          <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
+          <p className="text-sm text-slate-500">
+            Sign in to continue to Messenger
+          </p>
         </div>
-      )}
 
-      <Input
-        {...register('email')}
-        label="Email"
-        type="email"
-        placeholder="you@example.com"
-        error={errors.email?.message}
-      />
+        {serverError && (
+          <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+            {serverError}
+          </div>
+        )}
 
-      <PasswordInput
-        {...register('password')}
-        label="Password"
-        placeholder="Enter your password"
-        error={errors.password?.message}
-      />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input type="email" placeholder="you@example.com" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-      <Button type="submit" isLoading={isPending}>
-        Sign In
-      </Button>
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <PasswordInput placeholder="Enter your password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-      <p className="text-center text-sm text-slate-500">
-        Don&apos;t have an account?{' '}
-        <Link
-          href="/sign-up"
-          className="font-medium text-brand-600 transition-colors hover:text-brand-700"
-        >
-          Sign Up
-        </Link>
-      </p>
-    </form>
+        <Button type="submit" isLoading={isPending}>
+          Sign In
+        </Button>
+
+        <p className="text-center text-sm text-slate-500">
+          Don&apos;t have an account?{' '}
+          <Link
+            href="/sign-up"
+            className="font-medium text-brand-600 transition-colors hover:text-brand-700"
+          >
+            Sign Up
+          </Link>
+        </p>
+      </form>
+    </Form>
   );
 };
