@@ -1,29 +1,4 @@
-<div align="center">
- <img width="524" src="https://github.com/user-attachments/assets/73daa1c3-8cf0-4e02-adae-427b36a924a1" />
-</div>
-
-
-## [Lumitech](https://lumitech.co/) Next.js Template ⚡
-The Lumitech Next.js Template provides a powerful and modern starting point for building fast, scalable, and maintainable web applications. With a clean architecture and pre-configured best practices, this template ensures that your development process is efficient and the project is production-ready.
-
-### About Lumitech
-[Lumitech](https://lumitech.co/) is a global custom software development company helping tech businesses build successful teams and innovative products. With a 600% growth since 2022, our team of engineers, AI/ML specialists, and product managers delivers high-quality software using the latest technologies.
-
-### Why Use This Template? <br>
-This template is designed to accelerate and simplify development by providing modern technologies, a well-structured architecture, and ready-to-use examples:
-
-⚡ **Uses the latest and most modern technologies** – ```Zustand```, ```Tailwind```, ```TanStack Query```, ```Zod```, ```React Hook Form```, and more. <br>
-📂 **Clear folder architecture (FSD)** – no need to think about where to place files; everything is structured and ready to use. <br>
-📖 **Ready-to-use code examples** – quickly learn how to use key technologies with practical code snippets included in the template. <br>
-⚙️ **Typed env file** – prevents errors with strict validation of environment variables. <br>
-🖌️ **Smart Tailwind class merging** – automatically resolves style conflicts and simplifies working with dynamic classes. <br>
-🖼️ **Built-in SVG support with SVGR** – import SVGs as React components and style them dynamically. <br>
-📝 **Commitizen support** – makes writing commit messages easier and faster by guiding you through the process. <br>
-🔗 **Clean import rules** – alias-based imports keep your code clean and eliminate long relative paths. <br>
-
-Just grab it and start developing! 🚀
-
-
+# Messenger
 
 ## 🛠️ Tech Stack
 - [Typescript](https://www.typescriptlang.org/)
@@ -38,21 +13,47 @@ Just grab it and start developing! 🚀
 
 
 ## 📚 Getting Started
-### 1. Install dependencies:
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v18+
+- npm
+- Running [Messenger API](../messenger-api) backend
+
+### 1. Clone the repository
+
 ```bash
-yarn install
+git clone <repository-url>
+cd messenger
 ```
-### 2. Create a .env file:
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Create the environment file
+
 ```bash
 cp .env.example .env
 ```
-### 3. Run the development server:
-```bash
-yarn dev
+
+Update the `.env` file to point to your local API:
+
+```env
+NEXT_PUBLIC_API_URL="http://localhost:3001/api"
 ```
-</br>
-You will have server running at:
-- App - http://localhost:3000
+
+### 4. Run the development server
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:3000`.
+
+> **Note:** Make sure the backend API is running before starting the frontend. See the [Messenger API README](../messenger-api/README.md) for setup instructions.
 
 
 
