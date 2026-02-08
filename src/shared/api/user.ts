@@ -1,5 +1,6 @@
 import { api } from 'shared/lib';
 import {
+  SearchUserParams,
   UpdateAccountRequest,
   UpdatePasswordRequest,
   User,
@@ -7,6 +8,11 @@ import {
 
 export const userApi = {
   getMe: () => api.get<User>('/user/me').then(res => res.data),
+
+  searchUser: (params: SearchUserParams) =>
+    api
+      .get<User>('/user/find-by-email-or-username', { params })
+      .then(res => res.data),
 
   updateAccount: (data: UpdateAccountRequest) =>
     api.put<User>('/user/update-account', data).then(res => res.data),
